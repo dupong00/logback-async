@@ -15,3 +15,6 @@ management:
         include:
           - health
           - prometheus
+
+app:
+  run-id: "0000"
