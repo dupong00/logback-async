@@ -32,4 +32,9 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+	// 같은 실행 번호가 있으면 기동에 실패하므로 테스트 결과 경로를 매번 비운다
+	def testRuns = layout.buildDirectory.dir('test-runs')
+	doFirst {
+		testRuns.get().asFile.deleteDir()
+	}
 }

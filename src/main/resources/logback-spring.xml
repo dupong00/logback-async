@@ -3,10 +3,11 @@
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
     <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
 
-    <springProperty name="RUN_ID" source="app.run-id"/>
+    <!-- StartupValidator가 만든 runs/<실행 번호> 경로 -->
+    <springProperty name="RUN_DIR" source="app.run-dir"/>
 
     <appender name="EVENT_FILE" class="io.github.dupong00.logbackasync.logging.DelayedFileAppender">
-        <file>runs/${RUN_ID}/events.log</file>
+        <file>${RUN_DIR}/events.log</file>
         <encoder>
             <pattern>%d{yyyy-MM-dd'T'HH:mm:ss.SSS} %-5level %msg%n</pattern>
         </encoder>
@@ -36,7 +37,7 @@
     </springProfile>
 
     <appender name="ADMIN_FILE" class="ch.qos.logback.core.FileAppender">
-        <file>runs/${RUN_ID}/admin.log</file>
+        <file>${RUN_DIR}/admin.log</file>
         <encoder>
             <pattern>%d{yyyy-MM-dd'T'HH:mm:ss.SSS} [%thread] %msg%n</pattern>
         </encoder>

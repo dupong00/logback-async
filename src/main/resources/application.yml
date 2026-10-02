@@ -17,4 +17,5 @@ management:
           - prometheus
 
 app:
-  run-id: "0000"
+  # 실행 번호는 기동 인자 --app.run-id=0001로 받는다. 결과는 runs/<실행 번호>/에 쌓인다
+  runs-dir: runs
