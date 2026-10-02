@@ -12,8 +12,13 @@
         </encoder>
     </appender>
 
-    <logger name="EVENT_LOG" level="INFO" additivity="false">
+    <appender name="EVENT_ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>256</queueSize>
         <appender-ref ref="EVENT_FILE"/>
+    </appender>
+
+    <logger name="EVENT_LOG" level="INFO" additivity="false">
+        <appender-ref ref="EVENT_ASYNC"/>
     </logger>
 
     <appender name="ADMIN_FILE" class="ch.qos.logback.core.FileAppender">
