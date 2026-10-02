@@ -16,6 +16,17 @@
         <appender-ref ref="EVENT_FILE"/>
     </logger>
 
+    <appender name="ADMIN_FILE" class="ch.qos.logback.core.FileAppender">
+        <file>runs/${RUN_ID}/admin.log</file>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd'T'HH:mm:ss.SSS} [%thread] %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="ADMIN_LOG" level="INFO">
+        <appender-ref ref="ADMIN_FILE"/>
+    </logger>
+
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>
     </root>
