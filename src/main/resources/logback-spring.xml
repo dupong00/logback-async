@@ -12,14 +12,28 @@
         </encoder>
     </appender>
 
-    <appender name="EVENT_ASYNC" class="ch.qos.logback.classic.AsyncAppender">
-        <queueSize>256</queueSize>
-        <appender-ref ref="EVENT_FILE"/>
-    </appender>
+    <springProfile name="sync">
+        <logger name="EVENT_LOG" level="INFO" additivity="false">
+            <appender-ref ref="EVENT_FILE"/>
+        </logger>
+    </springProfile>
 
-    <logger name="EVENT_LOG" level="INFO" additivity="false">
-        <appender-ref ref="EVENT_ASYNC"/>
-    </logger>
+    <springProfile name="!sync">
+        <springProperty name="ASYNC_QUEUE_SIZE" source="app.logging.async.queue-size"/>
+        <springProperty name="ASYNC_DISCARDING_THRESHOLD" source="app.logging.async.discarding-threshold"/>
+        <springProperty name="ASYNC_NEVER_BLOCK" source="app.logging.async.never-block"/>
+
+        <appender name="EVENT_ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+            <queueSize>${ASYNC_QUEUE_SIZE}</queueSize>
+            <discardingThreshold>${ASYNC_DISCARDING_THRESHOLD}</discardingThreshold>
+            <neverBlock>${ASYNC_NEVER_BLOCK}</neverBlock>
+            <appender-ref ref="EVENT_FILE"/>
+        </appender>
+
+        <logger name="EVENT_LOG" level="INFO" additivity="false">
+            <appender-ref ref="EVENT_ASYNC"/>
+        </logger>
+    </springProfile>
 
     <appender name="ADMIN_FILE" class="ch.qos.logback.core.FileAppender">
         <file>runs/${RUN_ID}/admin.log</file>

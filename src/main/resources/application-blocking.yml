@@ -1,0 +1,7 @@
+# 조기 폐기를 끈다. 큐가 가득 차면 요청 스레드가 자리가 날 때까지 기다린다
+app:
+  logging:
+    async:
+      queue-size: 256
+      discarding-threshold: 0
+      never-block: false

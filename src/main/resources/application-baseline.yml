@@ -1,0 +1,7 @@
+# Logback 기본 폐기 정책. 큐 여유가 queueSize/5 미만이면 INFO 이하를 버린다
+app:
+  logging:
+    async:
+      queue-size: 256
+      discarding-threshold: -1 # Logback의 미설정 값. 시작할 때 256/5 = 51로 계산된다
+      never-block: false

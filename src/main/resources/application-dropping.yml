@@ -1,0 +1,7 @@
+# 조기 폐기를 끄고 기다리지도 않는다. 큐가 가득 차면 등급과 상관없이 버린다
+app:
+  logging:
+    async:
+      queue-size: 256
+      discarding-threshold: 0
+      never-block: true
